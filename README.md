@@ -1,9 +1,18 @@
 # wiki2corpus
 
-Fast collection of multilingual Wikipedia corpus
+Fast collection of multilingual Wikipedia corpus.
+
+## Introduction
+
+This is a simple script I created for a language identification project when I needed a small multilingual corpus and didn't want to download full Wikipedia dumps.
+
+wiki2corpus is a Wikipedia crawler designed to quickly build a *small* multilingual corpus from Wikipedia articles. It is not suited for crawling a large number of pages (see the --max-pages option).
 
 ## Quick start
 
+If you're really impatient, you can have wiki2corpus running with a couple of commands:
+
+1. install dependencies `pip install wikipedia nltk requests[security]` (you need either root access or virtualenv to be able to install the packages)
 1. clone the repository
 2. create a directory for the corpus e.g. `mkdir -p data/corpus`
 3. create a directory for the raw articles if you would like to keep them e.g. `mkdir data/raw`
@@ -16,30 +25,37 @@ This command will download the 10 pages - from the German, the English and the H
 
 ## Options
 
-| Name | Description |
-| ----- | ------ |
-| langcodes | list of Wikipedia codes, positional argument |
+| Name | Description | Default |
+| ----- | ------ | --- | 
+| langcodes | list of Wikipedia codes, positional argument | |
+|  --depth |  Recursion maximum depth level | 1 (no recursion) |
+| --visited-pages | Visited articles file, this file is both read and written | visited |
+|  --max-pages | Stop downloading after N pages if N > 0 | N=0 |
+|  --save-raw | Save raw pages in directory. Raw pages are only kept if this option is specified | |
+| --output-dir | Save corpus to OUTPUT\_DIR | |
+| --seed-pages | Specify your own seed articles | |
+|  --skip-last-sections | Skip last N sections (such as references and external links) | 1 | 
 
-positional arguments:
-  langcodes             list of Wikipedia codes
+### Recommended parameters
 
-optional arguments:
-  -h, --help            show this help message and exit
-  --depth DEPTH         Specify recursion maximum depth level
-  --visited-pages VISITED
-                        Specify file with list of visited pages. The file is
-                        read and updated as well
-  --max-pages MAX_PAGES
-                        Stop downloading in a given language if the number of
-                        downloaded pages reaches MAXIMUM_PAGES
-  --save-raw SAVE_RAW   Save raw pages in directory. Raw pages are only kept
-                        if this option is specified
-  --output-dir OUTPUT_DIR
-                        Save corpus to OUTPUT_DIR
-  --seed-pages SEED_PAGES
-                        Provide a list of seed articles
-  --skip-last-sections SKIP_LAST_SECTIONS
-                        Skip last N sections (such as references and external
-                        links) of every Wikipedia article
+It is very important to specify a small depth OR the max-pages argument.
+For example if depth=4, then max-pages should be kept to a couple hundred, unless you want a link explosion in large Wikipedias.
 
+### Seed list
 
+The default seed list:
+
+New York, San Francisco, London, Paris, Budapest, Washington, Berlin, Los Angeles, Seattle, Tokyo
+
+## Python package
+
+wiki2corpus can be installed as a Python package:
+
+    cd wiki2corpus
+    pip install .
+
+This command will install all dependencies, otherwise you have to install them manually.
+
+## Author contact
+
+Please report bugs and send feedback to judit@sch.bme.hu
