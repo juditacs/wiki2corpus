@@ -41,6 +41,10 @@ This command will download the 10 pages - from the German, the English and the H
 It is very important to specify a small depth OR the max-pages argument.
 For example if depth=4, then max-pages should be kept to a couple hundred, unless you want a link explosion in large Wikipedias.
 
+For example:
+
+    python wiki2corpus/wiki2corpus.py en de hu --depth 4 --max-pages 100 --output data/corpus --save-raw data/raw
+
 ### Seed list
 
 The default seed list:
